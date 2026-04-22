@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Build antes de Commit",
+  "description": "Antes de executar um git commit, roda mvn clean install no backend para garantir que o código compila e os testes passam. Se o build falhar, o commit não deve ser realizado.",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "shell"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Verifique se o comando que está prestes a ser executado é um git commit. Se for, primeiro rode 'mvn clean install -f nutrix-backend/pom.xml' e verifique se o build passou. Se o build falhar, NÃO prossiga com o commit e informe o erro. Se não for um git commit, prossiga normalmente."
+  }
+}

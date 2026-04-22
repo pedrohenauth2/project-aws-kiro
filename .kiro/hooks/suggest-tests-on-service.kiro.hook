@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Sugerir Testes para Services",
+  "description": "Quando um arquivo Service Java é editado, o agente analisa as mudanças e sugere testes unitários ou de propriedade que devem ser criados ou atualizados para cobrir a lógica alterada.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*Service.java"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Um arquivo Service Java foi editado. Analise o arquivo e verifique: 1) Existem testes unitários correspondentes para os métodos públicos? 2) Se métodos foram adicionados ou alterados, sugira testes específicos que devem ser criados. 3) Para cálculos matemáticos (como TMB), sugira testes de propriedade com jqwik. 4) Para operações de banco, sugira testes de integração. Não implemente os testes, apenas liste o que deve ser testado."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Validar Padrões Java",
+  "description": "Quando um arquivo Java é salvo, o agente verifica se o arquivo segue os padrões do projeto NUTRIX: DTOs simples devem usar Java Records, DTOs com validação devem usar Lombok + Bean Validation, classes devem estar no pacote correto, e imports não utilizados devem ser removidos.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.java"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "O arquivo Java foi editado. Verifique se ele segue os padrões do projeto NUTRIX: 1) DTOs sem validação devem ser Java Records em vez de classes Lombok. 2) DTOs com Bean Validation (@NotNull, @Positive, etc.) devem usar Lombok @Data. 3) O arquivo deve estar no pacote correto conforme a estrutura do projeto (auth, config, exercise, tmb, user, workout). 4) Imports não utilizados devem ser removidos. Se encontrar problemas, sugira as correções."
+  }
+}

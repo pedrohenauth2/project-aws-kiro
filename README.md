@@ -49,7 +49,16 @@ Melhorias técnicas aplicadas ao projeto existente, sem alterar deploy, banco ou
 - Spring Boot Actuator (health check endpoint)
 - Interceptor global de erros 401 no frontend (tratamento centralizado de sessão expirada)
 
-### Desafio 3 — Em breve
+### Desafio 3 — Agent Hooks no Kiro
+
+Criação de 3 Agent Hooks para automatizar atividades recorrentes do fluxo de desenvolvimento.
+
+📄 **Documento:** [DESAFIO_3_HOOKS.md](DESAFIO_3_HOOKS.md)
+
+**Hooks criados:**
+- Build antes de commit (preToolUse) — roda `mvn clean install` antes de qualquer git commit
+- Validar padrões Java (fileEdited) — verifica se arquivos `.java` seguem os padrões do projeto
+- Sugerir testes para Services (fileEdited) — sugere testes ao editar arquivos `*Service.java`
 
 ### Desafio 4 — Em breve
 
@@ -79,6 +88,7 @@ project-aws-kiro/
 ├── migrations/              # Migrations SQL
 ├── schema.sql               # Schema inicial do banco
 ├── DESAFIO_2_MODERNIZATION.md  # Documento do Desafio 2
+├── DESAFIO_3_HOOKS.md          # Documento do Desafio 3
 ├── ARCHITECTURE.md          # Arquitetura técnica
 └── TESTING_GUIDE.md         # Guia de testes
 ```
@@ -90,6 +100,7 @@ project-aws-kiro/
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitetura técnica, módulos, endpoints, banco de dados, segurança e deploy |
 | [TESTING_GUIDE.md](TESTING_GUIDE.md) | Roteiro de testes, URLs, credenciais e exemplos de curl |
 | [DESAFIO_2_MODERNIZATION.md](DESAFIO_2_MODERNIZATION.md) | Comparativo antes vs depois das melhorias do Desafio 2 |
+| [DESAFIO_3_HOOKS.md](DESAFIO_3_HOOKS.md) | Definição dos 3 Agent Hooks, gatilhos e comportamento esperado |
 
 ## Como Executar Localmente
 
