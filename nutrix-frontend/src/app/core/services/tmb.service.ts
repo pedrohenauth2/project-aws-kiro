@@ -47,4 +47,8 @@ export class TmbService {
   getHistory(): Observable<TmbHistory[]> {
     return this.http.get<TmbHistory[]>(`${this.API_URL}/history`);
   }
+
+  clearHistory(): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/history`);
+  }
 }

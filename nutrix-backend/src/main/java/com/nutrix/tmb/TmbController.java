@@ -40,4 +40,11 @@ public class TmbController {
         List<TmbHistory> history = tmbService.getHistory(userId);
         return ResponseEntity.ok(history);
     }
+
+    @DeleteMapping("/history")
+    public ResponseEntity<Void> clearHistory(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+        tmbService.clearHistory(userId);
+        return ResponseEntity.noContent().build();
+    }
 }

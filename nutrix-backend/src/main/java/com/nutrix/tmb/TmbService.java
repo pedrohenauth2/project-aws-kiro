@@ -77,4 +77,9 @@ public class TmbService {
     public List<TmbHistory> getHistory(Long userId) {
         return tmbHistoryRepository.findByUserIdOrderByCalculatedAtDesc(userId);
     }
+
+    @Transactional
+    public void clearHistory(Long userId) {
+        tmbHistoryRepository.deleteByUserId(userId);
+    }
 }

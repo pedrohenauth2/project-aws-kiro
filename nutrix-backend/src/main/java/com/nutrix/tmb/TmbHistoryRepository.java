@@ -9,4 +9,6 @@ import java.util.List;
 public interface TmbHistoryRepository extends JpaRepository<TmbHistory, Long> {
     
     List<TmbHistory> findByUserIdOrderByCalculatedAtDesc(Long userId);
+
+    void deleteByUserId(Long userId);
 }

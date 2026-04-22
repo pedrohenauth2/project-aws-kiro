@@ -120,9 +120,15 @@ export class TmbHistoryComponent implements OnInit {
 
   resetHistory(): void {
     if (confirm('Tem certeza que deseja limpar todo o histórico? Esta ação não pode ser desfeita.')) {
-      // Aqui você pode adicionar uma chamada ao backend para deletar o histórico
-      this.history = [];
-      this.toastService.showSuccess('Histórico limpo com sucesso!');
+      this.tmbService.clearHistory().subscribe({
+        next: () => {
+          this.history = [];
+          this.toastService.showSuccess('Histórico limpo com sucesso!');
+        },
+        error: () => {
+          this.toastService.showError('Erro ao limpar histórico.');
+        }
+      });
     }
   }
 }
