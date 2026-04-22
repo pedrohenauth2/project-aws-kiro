@@ -20,9 +20,9 @@ public class ExerciseService {
 
     public List<ExerciseDto> getByMuscleGroup(Long muscleGroupId) {
         return ExerciseData.getAllExercises().stream()
-                .filter(group -> group.getId().equals(muscleGroupId))
+                .filter(group -> group.id().equals(muscleGroupId))
                 .findFirst()
-                .map(MuscleGroupWithExercisesDto::getExercises)
+                .map(MuscleGroupWithExercisesDto::exercises)
                 .orElse(List.of());
     }
 }

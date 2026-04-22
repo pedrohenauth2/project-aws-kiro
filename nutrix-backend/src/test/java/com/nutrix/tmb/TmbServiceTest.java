@@ -63,8 +63,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -86,8 +86,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -109,8 +109,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -132,8 +132,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -155,8 +155,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -178,8 +178,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -201,8 +201,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -224,8 +224,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -247,8 +247,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -270,8 +270,8 @@ class TmbServiceTest {
         TmbResponseDto response = tmbService.calculateTmb(request);
 
         // Then
-        assertThat(response.getTmbKcal()).isEqualByComparingTo(expectedTmb);
-        assertThat(response.getTdeeKcal()).isEqualByComparingTo(expectedTdee);
+        assertThat(response.tmbKcal()).isEqualByComparingTo(expectedTmb);
+        assertThat(response.tdeeKcal()).isEqualByComparingTo(expectedTdee);
     }
 
     @Test
@@ -311,8 +311,8 @@ class TmbServiceTest {
         assertThat(capturedHistory.getAgeYears()).isEqualTo(request.getAgeYears());
         assertThat(capturedHistory.getBiologicalSex()).isEqualTo(request.getBiologicalSex());
         assertThat(capturedHistory.getActivityLevel()).isEqualTo(request.getActivityLevel());
-        assertThat(capturedHistory.getTmbKcal()).isEqualByComparingTo(response.getTmbKcal());
-        assertThat(capturedHistory.getTdeeKcal()).isEqualByComparingTo(response.getTdeeKcal());
+        assertThat(capturedHistory.getTmbKcal()).isEqualByComparingTo(response.tmbKcal());
+        assertThat(capturedHistory.getTdeeKcal()).isEqualByComparingTo(response.tdeeKcal());
         assertThat(capturedHistory.getCalculatedAt()).isNotNull();
     }
 }

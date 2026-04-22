@@ -68,8 +68,8 @@ public class TmbService {
         history.setAgeYears(request.getAgeYears());
         history.setBiologicalSex(request.getBiologicalSex());
         history.setActivityLevel(request.getActivityLevel());
-        history.setTmbKcal(response.getTmbKcal());
-        history.setTdeeKcal(response.getTdeeKcal());
+        history.setTmbKcal(response.tmbKcal());
+        history.setTdeeKcal(response.tdeeKcal());
 
         return tmbHistoryRepository.save(history);
     }
