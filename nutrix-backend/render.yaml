@@ -1,0 +1,21 @@
+# Render Blueprint - NUTRIX Backend
+services:
+  - type: web
+    name: nutrix-backend
+    runtime: java
+    rootDir: nutrix-backend
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/nutrix-backend-1.0.0.jar
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: JAVA_VERSION
+        value: 17
