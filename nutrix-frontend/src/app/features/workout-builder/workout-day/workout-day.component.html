@@ -1,0 +1,110 @@
+<div class="workout-day">
+  <div class="day-header">
+    <h3>{{ day.label }}</h3>
+    <button class="btn btn-primary btn-sm" (click)="openExercisePicker()">
+      + Adicionar Exercício
+    </button>
+  </div>
+
+  <div class="entries-list" *ngIf="day.entries.length > 0">
+    <div class="entry-card" *ngFor="let entry of day.entries; let i = index">
+      <div class="entry-header">
+        <div class="exercise-name">
+          <span class="order-number">{{ i + 1 }}.</span>
+          <strong>{{ getExerciseDisplayName(entry) }}</strong>
+        </div>
+        <div class="entry-actions">
+          <button
+            class="btn-icon"
+            (click)="moveEntryUp(i)"
+            [disabled]="i === 0"
+            title="Mover para cima"
+          >
+            ↑
+          </button>
+          <button
+            class="btn-icon"
+            (click)="moveEntryDown(i)"
+            [disabled]="i === day.entries.length - 1"
+            title="Mover para baixo"
+          >
+            ↓
+          </button>
+          <button
+            class="btn-icon btn-danger"
+            (click)="removeEntry(i)"
+            title="Remover"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      <div class="entry-details">
+        <div class="detail-group">
+          <label>Séries</label>
+          <input
+            type="number"
+            [(ngModel)]="entry.sets"
+            (ngModelChange)="onEntryChanged()"
+            min="1"
+            class="form-control-sm"
+          />
+        </div>
+        <div class="detail-group">
+          <label>Repetições</label>
+          <input
+            type="number"
+            [(ngModel)]="entry.reps"
+            (ngModelChange)="onEntryChanged()"
+            min="1"
+            class="form-control-sm"
+          />
+        </div>
+        <div class="detail-group">
+          <label>Carga (kg)</label>
+          <input
+            type="number"
+            [(ngModel)]="entry.weightKg"
+            (ngModelChange)="onEntryChanged()"
+            min="0"
+            step="0.5"
+            placeholder="Opcional"
+            class="form-control-sm"
+          />
+        </div>
+      </div>
+
+      <div class="entry-notes" *ngIf="entry.notes || editingEntry === entry">
+        <label>Observações</label>
+        <textarea
+          [(ngModel)]="entry.notes"
+          (ngModelChange)="onEntryChanged()"
+          placeholder="Adicione observações sobre este exercício..."
+          class="form-control-sm"
+          rows="2"
+        ></textarea>
+      </div>
+      <button
+        class="btn-link"
+        *ngIf="!entry.notes && editingEntry !== entry"
+        (click)="editingEntry = entry"
+      >
+        + Adicionar observações
+      </button>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="day.entries.length === 0">
+    <p>Nenhum exercício adicionado para este dia.</p>
+    <button class="btn btn-primary" (click)="openExercisePicker()">
+      Adicionar Primeiro Exercício
+    </button>
+  </div>
+
+  <app-exercise-picker
+    *ngIf="showExercisePicker"
+    (exerciseSelected)="onExerciseSelected($event)"
+    (cancelled)="closeExercisePicker()"
+  ></app-exercise-picker>
+</div>

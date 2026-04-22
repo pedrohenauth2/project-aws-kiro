@@ -1,0 +1,46 @@
+﻿{
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "nutrix-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nutrix-frontend",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "development": {
+              "buildTarget": "nutrix-frontend:build"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "3ffd4727-8fa3-4bc3-a8e8-438740a7ac7d"
+  }
+}

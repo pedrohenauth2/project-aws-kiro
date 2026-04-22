@@ -1,0 +1,49 @@
+<div class="dashboard-wrapper">
+  <!-- Greeting Section -->
+  <section class="dashboard-greeting">
+    <div class="dashboard-greeting__container">
+      <h1 class="dashboard-greeting__title">
+        {{ getGreetingText() }} {{ greetingEmoji }}, {{ fullName }}!
+      </h1>
+      <p class="dashboard-greeting__subtitle">Bem-vindo ao NUTRIX</p>
+    </div>
+  </section>
+
+  <!-- Features Grid 3D -->
+  <section class="dashboard-features">
+    <div class="dashboard-features__container">
+      <div class="features-grid-3d">
+        <div
+          *ngFor="let feature of features; trackBy: trackByFeature"
+          class="feature-card-wrapper"
+        >
+          <div
+            class="feature-card"
+            [class.feature-card--active]="feature.active"
+            [class.feature-card--inactive]="!feature.active"
+            (click)="onCardClick(feature)"
+            [attr.role]="feature.active ? 'button' : 'presentation'"
+            [attr.tabindex]="feature.active ? 0 : -1"
+            (keydown.enter)="feature.active && onCardClick(feature)"
+          >
+            <!-- Active Card -->
+            <div *ngIf="feature.active" class="feature-card__content">
+              <div class="feature-card__icon" [innerHTML]="getIconSvg(feature.icon)"></div>
+              <h3 class="feature-card__title">{{ feature.title }}</h3>
+              <p class="feature-card__description">{{ feature.description }}</p>
+              <div class="feature-card__arrow">→</div>
+            </div>
+
+            <!-- Inactive Card -->
+            <div *ngIf="!feature.active" class="feature-card__content feature-card__content--inactive">
+              <div class="feature-card__icon" [innerHTML]="getIconSvg(feature.icon)"></div>
+              <h3 class="feature-card__title">{{ feature.title }}</h3>
+              <p class="feature-card__description">{{ feature.description }}</p>
+              <div class="feature-card__badge">Em breve</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,128 @@
+<div class="history-wrapper">
+  <!-- Header -->
+  <div class="history-header">
+    <div class="history-header__container">
+      <div class="history-header__back">
+        <button 
+          class="history-header__back-btn"
+          routerLink="/tmb"
+          aria-label="Voltar ao calculador"
+        >
+          ← Voltar
+        </button>
+      </div>
+      <h1 class="history-header__title">Histórico de Cálculos TMB</h1>
+      <p class="history-header__subtitle">Acompanhe sua evolução ao longo do tempo</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="history-content">
+    <div class="history-content__container">
+      <!-- Loading State -->
+      <div class="skeleton-loader" *ngIf="isLoading">
+        <div class="skeleton-card" *ngFor="let i of [1,2,3]"></div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!isLoading && history.length === 0">
+        <div class="empty-state__icon">📊</div>
+        <h2 class="empty-state__title">Nenhum cálculo encontrado</h2>
+        <p class="empty-state__message">Você ainda não realizou nenhum cálculo de TMB.</p>
+        <button 
+          class="btn btn-primary empty-state__action"
+          routerLink="/tmb"
+        >
+          Fazer Primeiro Cálculo
+        </button>
+      </div>
+
+      <!-- History List -->
+      <div class="history-list" *ngIf="!isLoading && history.length > 0">
+        <div 
+          class="history-card"
+          *ngFor="let record of history; let i = index; trackBy: trackByHistoryId"
+        >
+          <!-- Timeline Line -->
+          <div class="history-card__timeline" *ngIf="i < history.length - 1"></div>
+
+          <!-- Card Content -->
+          <div class="history-card__content">
+            <!-- Date -->
+            <div class="history-card__date">
+              {{ formatDate(record.calculatedAt) }}
+            </div>
+
+            <!-- Results -->
+            <div class="history-card__results">
+              <div class="result-box result-box--tmb">
+                <div class="result-box__icon">🔥</div>
+                <div class="result-box__label">TMB</div>
+                <div class="result-box__value">{{ record.tmbKcal | number:'1.0-0' }}</div>
+                <div class="result-box__unit">kcal/dia</div>
+              </div>
+
+              <div class="result-box result-box--tdee">
+                <div class="result-box__icon">⚡</div>
+                <div class="result-box__label">TDEE</div>
+                <div class="result-box__value">{{ record.tdeeKcal | number:'1.0-0' }}</div>
+                <div class="result-box__unit">kcal/dia</div>
+              </div>
+
+              <!-- Trend Indicator -->
+              <div 
+                class="trend-indicator"
+                [ngClass]="'trend-indicator--' + getTrend(i)?.direction"
+                *ngIf="getTrend(i)"
+              >
+                <span class="trend-indicator__emoji">{{ getTrendEmoji(getTrend(i)) }}</span>
+                <span class="trend-indicator__delta">{{ getTrend(i)?.delta | number:'1.0-0' }} kcal</span>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="history-card__details">
+              <div class="detail-row">
+                <span class="detail-label">Peso:</span>
+                <span class="detail-value">{{ record.weightKg }} kg</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Altura:</span>
+                <span class="detail-value">{{ record.heightCm }} cm</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Idade:</span>
+                <span class="detail-value">{{ record.ageYears }} anos</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Sexo:</span>
+                <span class="detail-value">{{ getSexLabel(record.biologicalSex) }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Atividade:</span>
+                <span class="detail-value">{{ getActivityLabel(record.activityLevel) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="history-actions" *ngIf="!isLoading && history.length > 0">
+        <button 
+          class="btn btn-primary"
+          routerLink="/tmb"
+        >
+          Novo Cálculo
+        </button>
+        <button 
+          class="btn btn-secondary btn-danger"
+          (click)="resetHistory()"
+          aria-label="Limpar histórico"
+        >
+          🗑️ Limpar Histórico
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

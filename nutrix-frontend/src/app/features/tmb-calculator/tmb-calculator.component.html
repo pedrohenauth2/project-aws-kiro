@@ -1,0 +1,231 @@
+<div class="tmb-wrapper">
+  <!-- Header com botão voltar -->
+  <div class="tmb-header">
+    <div class="tmb-header__container">
+      <div class="tmb-header__back">
+        <button 
+          class="tmb-header__back-btn"
+          routerLink="/dashboard"
+          aria-label="Voltar ao dashboard"
+        >
+          ← Voltar ao Dashboard
+        </button>
+      </div>
+      <h1 class="tmb-header__title">Calculadora de TMB</h1>
+      <p class="tmb-header__subtitle">Calcule sua Taxa Metabólica Basal e gasto calórico diário</p>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="tmb-content">
+    <div class="tmb-content__container">
+      <!-- Botão Ver Histórico (sempre visível) -->
+      <div class="tmb-history-btn-container">
+        <button 
+          class="btn btn-secondary tmb-history-btn"
+          (click)="viewHistory()"
+          aria-label="Ver histórico de cálculos"
+        >
+          📊 Ver Histórico
+        </button>
+      </div>
+
+      <!-- Formulário de entrada -->
+      <form [formGroup]="tmbForm" (ngSubmit)="onSubmit()" class="tmb-form" *ngIf="!result">
+        <div class="form-grid">
+          <!-- Peso -->
+          <div class="form-group">
+            <label for="weightKg" class="form-group__label">Peso (kg)</label>
+            <input
+              type="number"
+              id="weightKg"
+              class="form-control"
+              [class.form-control--error]="tmbForm.get('weightKg')?.invalid && tmbForm.get('weightKg')?.touched"
+              formControlName="weightKg"
+              placeholder="Ex: 75"
+              [disabled]="isLoading"
+            />
+            <div 
+              class="error-message" 
+              *ngIf="tmbForm.get('weightKg')?.invalid && tmbForm.get('weightKg')?.touched"
+            >
+              Peso é obrigatório e deve ser maior que zero
+            </div>
+          </div>
+
+          <!-- Altura -->
+          <div class="form-group">
+            <label for="heightCm" class="form-group__label">Altura (cm)</label>
+            <input
+              type="number"
+              id="heightCm"
+              class="form-control"
+              [class.form-control--error]="tmbForm.get('heightCm')?.invalid && tmbForm.get('heightCm')?.touched"
+              formControlName="heightCm"
+              placeholder="Ex: 175"
+              [disabled]="isLoading"
+            />
+            <div 
+              class="error-message" 
+              *ngIf="tmbForm.get('heightCm')?.invalid && tmbForm.get('heightCm')?.touched"
+            >
+              Altura é obrigatória e deve ser maior que zero
+            </div>
+          </div>
+
+          <!-- Idade -->
+          <div class="form-group">
+            <label for="ageYears" class="form-group__label">Idade (anos)</label>
+            <input
+              type="number"
+              id="ageYears"
+              class="form-control"
+              [class.form-control--error]="tmbForm.get('ageYears')?.invalid && tmbForm.get('ageYears')?.touched"
+              formControlName="ageYears"
+              placeholder="Ex: 30"
+              [disabled]="isLoading"
+            />
+            <div 
+              class="error-message" 
+              *ngIf="tmbForm.get('ageYears')?.invalid && tmbForm.get('ageYears')?.touched"
+            >
+              Idade deve estar entre 1 e 120 anos
+            </div>
+          </div>
+
+          <!-- Sexo Biológico -->
+          <div class="form-group">
+            <label for="biologicalSex" class="form-group__label">Sexo Biológico</label>
+            <select 
+              id="biologicalSex" 
+              class="form-control"
+              [class.form-control--error]="tmbForm.get('biologicalSex')?.invalid && tmbForm.get('biologicalSex')?.touched"
+              formControlName="biologicalSex"
+              [disabled]="isLoading"
+            >
+              <option value="">Selecione...</option>
+              <option value="MALE">Masculino</option>
+              <option value="FEMALE">Feminino</option>
+            </select>
+            <div 
+              class="error-message" 
+              *ngIf="tmbForm.get('biologicalSex')?.invalid && tmbForm.get('biologicalSex')?.touched"
+            >
+              Sexo biológico é obrigatório
+            </div>
+          </div>
+        </div>
+
+        <!-- Nível de Atividade -->
+        <div class="form-group form-group--full">
+          <label for="activityLevel" class="form-group__label">Nível de Atividade Física</label>
+          <select 
+            id="activityLevel" 
+            class="form-control"
+            [class.form-control--error]="tmbForm.get('activityLevel')?.invalid && tmbForm.get('activityLevel')?.touched"
+            formControlName="activityLevel"
+            [disabled]="isLoading"
+          >
+            <option value="">Selecione...</option>
+            <option *ngFor="let level of activityLevels" [value]="level.value">
+              {{ level.label }}
+            </option>
+          </select>
+          <div 
+            class="error-message" 
+            *ngIf="tmbForm.get('activityLevel')?.invalid && tmbForm.get('activityLevel')?.touched"
+          >
+            Nível de atividade é obrigatório
+          </div>
+        </div>
+
+        <!-- Botão Calcular -->
+        <button
+          type="submit"
+          class="btn btn-primary tmb-form__submit"
+          [disabled]="tmbForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Calcular TMB</span>
+          <span *ngIf="isLoading" class="spinner spinner-sm"></span>
+          <span *ngIf="isLoading">Calculando...</span>
+        </button>
+      </form>
+
+      <!-- Resultado -->
+      <div class="tmb-result" *ngIf="result">
+        <h2 class="tmb-result__title">Seu Resultado</h2>
+        
+        <div class="result-cards">
+          <!-- Card TMB -->
+          <div class="result-card result-card--tmb">
+            <div class="result-card__icon">🔥</div>
+            <div class="result-card__label">TMB</div>
+            <div class="result-card__value">{{ result.tmbKcal | number:'1.0-0' }}</div>
+            <div class="result-card__unit">kcal/dia</div>
+            <div class="result-card__description">Taxa Metabólica Basal</div>
+          </div>
+
+          <!-- Card TDEE -->
+          <div class="result-card result-card--tdee">
+            <div class="result-card__icon">⚡</div>
+            <div class="result-card__label">TDEE</div>
+            <div class="result-card__value">{{ result.tdeeKcal | number:'1.0-0' }}</div>
+            <div class="result-card__unit">kcal/dia</div>
+            <div class="result-card__description">Gasto Calórico Total</div>
+          </div>
+        </div>
+
+        <!-- Prompt de Salvamento -->
+        <div class="save-prompt" *ngIf="showSavePrompt">
+          <p class="save-prompt__message">Deseja salvar este resultado no histórico?</p>
+          <div class="save-prompt__actions">
+            <button class="btn btn-primary" (click)="saveToHistory()">Salvar</button>
+            <button class="btn btn-secondary" (click)="skipSave()">Não Salvar</button>
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="tmb-result__actions" *ngIf="!showSavePrompt">
+          <button 
+            class="btn btn-primary tmb-result__new-calc" 
+            (click)="newCalculation()"
+          >
+            Novo Cálculo
+          </button>
+          <button 
+            class="btn btn-secondary tmb-result__view-history" 
+            (click)="viewHistory()"
+          >
+            Ver Histórico
+          </button>
+        </div>
+      </div>
+
+      <!-- Histórico Recente (3 últimos cálculos) -->
+      <div class="recent-history" *ngIf="!result && recentHistory.length > 0">
+        <h3 class="recent-history__title">Últimos Cálculos</h3>
+        <div class="recent-history__list">
+          <div 
+            class="recent-history__item" 
+            *ngFor="let record of recentHistory; trackBy: trackByHistoryId"
+          >
+            <div class="recent-history__date">{{ formatDate(record.calculatedAt) }}</div>
+            <div class="recent-history__values">
+              <div class="recent-history__value">
+                <span class="recent-history__label">TMB:</span>
+                <span class="recent-history__number">{{ record.tmbKcal | number:'1.0-0' }} kcal</span>
+              </div>
+              <div class="recent-history__value">
+                <span class="recent-history__label">TDEE:</span>
+                <span class="recent-history__number">{{ record.tdeeKcal | number:'1.0-0' }} kcal</span>
+              </div>
+            </div>
+            <div class="recent-history__params">
+              {{ record.weightKg }}kg • {{ record.heightCm }}cm • {{ record.ageYears }}a • {{ getSexLabel(record.biologicalSex) }} • {{ getActivityLabel(record.activityLevel) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

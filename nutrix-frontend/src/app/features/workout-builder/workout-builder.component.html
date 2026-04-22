@@ -1,0 +1,68 @@
+<div class="workout-builder-container">
+  <div class="header">
+    <div class="header-left">
+      <button class="btn btn-secondary" (click)="goBack()">← Voltar</button>
+      <h1>Montador de Treino</h1>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-outline" (click)="createNewPlan()">Novo Treino</button>
+      <button class="btn btn-primary" (click)="savePlan()" [disabled]="isSaving || !currentPlan">
+        {{ isSaving ? 'Salvando...' : 'Salvar Treino' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Carregando treino...</p>
+  </div>
+
+  <div class="workout-content" *ngIf="!isLoading && currentPlan">
+    <div class="plan-info">
+      <div class="plan-name-group">
+        <label for="planName">Nome do Treino</label>
+        <input
+          type="text"
+          id="planName"
+          [(ngModel)]="currentPlan.name"
+          placeholder="Ex: Treino de Hipertrofia"
+          class="form-control"
+        />
+      </div>
+      <div class="plan-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total de Exercícios:</span>
+          <span class="stat-value">{{ getTotalExercises() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="days-tabs">
+      <button
+        *ngFor="let day of daysOfWeek; let i = index"
+        class="day-tab"
+        [class.active]="selectedDayIndex === i"
+        (click)="selectDay(i)"
+      >
+        <span class="day-name">{{ day.label }}</span>
+        <span class="exercise-count" *ngIf="getDayExerciseCount(i) > 0">
+          {{ getDayExerciseCount(i) }}
+        </span>
+      </button>
+    </div>
+
+    <div class="day-content">
+      <app-workout-day
+        *ngIf="getCurrentDay()"
+        [day]="getCurrentDay()!"
+        (dayChanged)="onDayChanged($event)"
+      ></app-workout-day>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && !currentPlan">
+    <div class="empty-icon">🏋️</div>
+    <h2>Nenhum treino encontrado</h2>
+    <p>Crie seu primeiro plano de treino para começar.</p>
+    <button class="btn btn-primary" (click)="createNewPlan()">Criar Novo Treino</button>
+  </div>
+</div>

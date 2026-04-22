@@ -1,0 +1,64 @@
+<div class="exercise-picker-overlay">
+  <div class="exercise-picker-modal">
+    <div class="modal-header">
+      <h2>Selecionar Exercício</h2>
+      <button class="close-btn" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body" *ngIf="!isLoading">
+      <div class="muscle-groups">
+        <button
+          *ngFor="let group of muscleGroups"
+          class="muscle-group-btn"
+          [class.active]="selectedMuscleGroupId === group.id"
+          (click)="selectMuscleGroup(group.id)"
+        >
+          {{ group.name }}
+        </button>
+      </div>
+
+      <div class="exercises-list" *ngIf="getSelectedMuscleGroup()">
+        <h3>Exercícios de {{ getSelectedMuscleGroup()?.name }}</h3>
+        <div class="exercise-grid">
+          <div
+            *ngFor="let exercise of getSelectedMuscleGroup()?.exercises"
+            class="exercise-card"
+            [class.selected]="selectedExercise?.id === exercise.id"
+            (click)="selectExercise(exercise)"
+          >
+            <h4>{{ exercise.name }}</h4>
+            <p class="exercise-description">{{ exercise.description }}</p>
+            <span class="variations-count" *ngIf="exercise.variations.length > 0">
+              {{ exercise.variations.length }} variações
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variations-section" *ngIf="selectedExercise && selectedExercise.variations.length > 0">
+        <h3>Variações de {{ selectedExercise.name }}</h3>
+        <div class="variations-list">
+          <button
+            *ngFor="let variation of selectedExercise.variations"
+            class="variation-btn"
+            [class.active]="selectedVariationId === variation.id"
+            (click)="selectVariation(variation.id)"
+          >
+            {{ variation.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      <p>Carregando exercícios...</p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+      <button class="btn btn-primary" (click)="confirmSelection()" [disabled]="!selectedExercise">
+        Adicionar Exercício
+      </button>
+    </div>
+  </div>
+</div>
