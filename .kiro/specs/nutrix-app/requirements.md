@@ -174,3 +174,106 @@ NUTRIX é uma aplicação web voltada para saúde e condicionamento físico, com
 3. THE System SHALL conectar ao Supabase a partir do backend Java/Spring Boot utilizando as credenciais de conexão configuradas via variáveis de ambiente, nunca hardcoded no código-fonte.
 4. THE schema.sql SHALL incluir os dados iniciais do banco de exercícios (grupos musculares, exercícios e variações) para que a aplicação funcione imediatamente após a execução do script.
 5. THE System SHALL habilitar Row Level Security (RLS) no Supabase nas tabelas que contêm dados sensíveis de usuários (histórico de TMB, planos de treino, dias de treino, entradas de exercício).
+
+
+---
+
+### Requirement 10: Correção do Logout
+
+**User Story:** Como usuário autenticado, quero que o botão de sair me redirecione para a tela de login, para que eu possa encerrar minha sessão com segurança.
+
+#### Acceptance Criteria
+
+1. WHEN o usuário clica no botão de logout, THE Auth_Service SHALL remover o token JWT, o username e o fullName do `localStorage`.
+2. WHEN o usuário clica no botão de logout, THE System SHALL redirecionar o usuário para a rota `/login`.
+3. WHEN o usuário tenta acessar uma rota protegida após o logout, THE System SHALL redirecionar o usuário para `/login`.
+
+---
+
+### Requirement 11: Sistema de Notificações Toast
+
+**User Story:** Como usuário, quero receber notificações visuais elegantes dentro do aplicativo em vez de alertas bloqueantes do browser, para que minha experiência de uso seja fluida e profissional.
+
+#### Acceptance Criteria
+
+1. THE Toast_Service SHALL expor métodos `showSuccess(message)`, `showError(message)` e `showInfo(message)`.
+2. WHEN um método de toast é chamado, THE Toast_Component SHALL exibir a notificação com ícone e cor correspondente ao tipo (verde para sucesso, vermelho para erro, azul para info).
+3. WHEN uma notificação é exibida, THE Toast_Component SHALL removê-la automaticamente após 4000 milissegundos.
+4. WHEN múltiplas notificações são disparadas em sequência, THE Toast_Component SHALL exibi-las empilhadas verticalmente, respeitando a ordem de chegada.
+5. THE System SHALL substituir todas as chamadas a `alert()` por chamadas ao Toast_Service correspondente.
+
+---
+
+### Requirement 12: Design System Global
+
+**User Story:** Como usuário, quero que o aplicativo tenha uma identidade visual consistente e profissional com verde como cor principal.
+
+#### Acceptance Criteria
+
+1. THE Design_System SHALL definir verde como cor principal (`--color-primary: #22c55e`) com paleta completa de variações.
+2. THE Design_System SHALL definir gradiente principal: `linear-gradient(135deg, #16a34a 0%, #22c55e 100%)`.
+3. THE Design_System SHALL definir variáveis de tipografia, espaçamento, border-radius e box-shadow consistentes.
+4. WHERE o dispositivo tem largura de tela inferior a 768px, THE System SHALL adaptar todos os layouts para exibição em coluna única sem overflow horizontal.
+
+---
+
+### Requirement 13: Navbar Global para Telas Autenticadas
+
+**User Story:** Como usuário autenticado, quero um cabeçalho consistente em todas as telas com navegação e logout.
+
+#### Acceptance Criteria
+
+1. THE Navbar_Component SHALL ser exibido em todas as rotas protegidas pelo `authGuard`.
+2. THE Navbar_Component SHALL exibir o logo "NUTRIX" com link para `/dashboard`.
+3. THE Navbar_Component SHALL exibir o nome completo do usuário e botão de logout.
+4. WHERE o dispositivo tem largura inferior a 768px, THE Navbar_Component SHALL colapsar para exibição compacta.
+
+---
+
+### Requirement 14: Redesign da Tela de Login
+
+**User Story:** Como usuário, quero uma tela de login visualmente impactante com layout de 2 painéis em desktop.
+
+#### Acceptance Criteria
+
+1. THE Login_Component SHALL exibir layout dividido em dois painéis em telas > 768px: painel esquerdo com gradiente e painel direito com formulário.
+2. WHEN o login está em progresso, THE Login_Component SHALL exibir spinner e desabilitar o botão.
+3. WHEN o login falha, THE Login_Component SHALL exibir erro via Toast_Service.
+4. WHERE o dispositivo tem largura inferior a 768px, THE Login_Component SHALL exibir apenas o formulário em tela cheia.
+
+---
+
+### Requirement 15: Redesign do Dashboard
+
+**User Story:** Como usuário, quero um dashboard com cards grandes, saudação personalizada e indicação visual de funcionalidades futuras.
+
+#### Acceptance Criteria
+
+1. THE Dashboard_Component SHALL exibir cards em grid responsivo (2 colunas desktop, 1 coluna mobile).
+2. THE Dashboard_Component SHALL exibir saudação personalizada com nome do usuário e hora do dia (Bom dia/Boa tarde/Boa noite).
+3. WHEN o usuário clica em um card inativo, THE Toast_Service SHALL exibir "Funcionalidade disponível em breve!".
+
+---
+
+### Requirement 16: Redesign da Calculadora TMB
+
+**User Story:** Como usuário, quero uma calculadora TMB com formulário elegante, resultado visual em cards coloridos e botão de voltar ao dashboard.
+
+#### Acceptance Criteria
+
+1. THE TMB_Calculator_Component SHALL exibir botão "Voltar ao Dashboard" no cabeçalho.
+2. WHEN o cálculo é concluído, THE TMB_Calculator_Component SHALL exibir TMB e TDEE em cards com gradiente.
+3. WHEN o resultado é salvo, THE Toast_Service SHALL exibir "Resultado salvo no histórico!".
+
+---
+
+### Requirement 17: Redesign do Histórico TMB
+
+**User Story:** Como usuário, quero visualizar meu histórico em cards com timeline e indicadores de tendência.
+
+#### Acceptance Criteria
+
+1. THE TMB_History_Component SHALL exibir registros ordenados por data decrescente.
+2. WHEN o histórico está carregando, THE TMB_History_Component SHALL exibir skeleton loader.
+3. WHEN o histórico está vazio, THE TMB_History_Component SHALL exibir empty state com botão para primeiro cálculo.
+4. THE TMB_History_Component SHALL exibir indicador de tendência entre registros consecutivos (↑ ↓ →).
