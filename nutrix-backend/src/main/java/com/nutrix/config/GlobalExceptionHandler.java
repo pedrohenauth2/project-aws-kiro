@@ -4,8 +4,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -129,13 +127,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    @Data
-    @AllArgsConstructor
-    public static class ErrorResponse {
-        private Instant timestamp;
-        private int status;
-        private String error;
-        private String message;
-        private String path;
-    }
+    public record ErrorResponse(
+        Instant timestamp,
+        int status,
+        String error,
+        String message,
+        String path
+    ) {}
 }

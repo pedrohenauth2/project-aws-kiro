@@ -285,9 +285,10 @@ class TmbServiceTest {
         request.setBiologicalSex(BiologicalSex.MALE);
         request.setActivityLevel(ActivityLevel.SEDENTARY);
 
-        TmbResponseDto response = new TmbResponseDto();
-        response.setTmbKcal(BigDecimal.valueOf(1698.75));
-        response.setTdeeKcal(BigDecimal.valueOf(2038.50));
+        TmbResponseDto response = new TmbResponseDto(
+                BigDecimal.valueOf(1698.75),
+                BigDecimal.valueOf(2038.50)
+        );
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
         when(tmbHistoryRepository.save(any(TmbHistory.class))).thenAnswer(invocation -> {
