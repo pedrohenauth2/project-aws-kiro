@@ -8,6 +8,7 @@ Aplicação web para gerenciamento de saúde e treinos, com calculadora de TMB, 
 |---------|-----|
 | **Frontend** | https://project-aws-kiro.vercel.app |
 | **Backend** | https://nutrix-backend-fibs.onrender.com |
+| **Swagger (API Docs)** | https://nutrix-backend-fibs.onrender.com/swagger-ui.html |
 
 **Credenciais de teste:** `admin` / `senha123`
 
@@ -18,14 +19,41 @@ Aplicação web para gerenciamento de saúde e treinos, com calculadora de TMB, 
 - **Banco de Dados:** PostgreSQL (Supabase)
 - **Deploy:** Render (backend), Vercel (frontend)
 
-## Funcionalidades
+---
 
-- **Autenticação JWT** — Login seguro com token de 24h
-- **Calculadora de TMB/TDEE** — Fórmula Mifflin-St Jeor com 5 níveis de atividade
-- **Histórico de Cálculos** — Salvar, consultar e limpar histórico
-- **Montador de Treino** — Plano semanal com exercícios, séries, repetições e carga
-- **Banco de Exercícios** — 9 grupos musculares com variações
-- **Dashboard** — 4 cards (2 ativos, 2 planejados para o futuro)
+## Desafios
+
+### Desafio 1 — Criação da Aplicação
+
+Desenvolvimento completo da plataforma NUTRIX do zero, incluindo backend, frontend, banco de dados e deploy.
+
+**Funcionalidades entregues:**
+- Autenticação JWT com Spring Security
+- Calculadora de TMB/TDEE (fórmula Mifflin-St Jeor)
+- Histórico de cálculos com persistência
+- Montador de treino semanal com banco de exercícios
+- Dashboard com cards de funcionalidades
+- Design system com paleta verde, toast notifications, navbar global
+- Responsividade mobile-first
+- Deploy no Render (backend) e Vercel (frontend)
+
+### Desafio 2 — Modernização
+
+Melhorias técnicas aplicadas ao projeto existente, sem alterar deploy, banco ou comportamento funcional.
+
+📄 **Documento:** [DESAFIO_2_MODERNIZATION.md](DESAFIO_2_MODERNIZATION.md)
+
+**Melhorias implementadas:**
+- Java Records nos DTOs (código mais limpo e imutável)
+- SpringDoc OpenAPI / Swagger UI (documentação interativa da API)
+- Spring Boot Actuator (health check endpoint)
+- Interceptor global de erros 401 no frontend (tratamento centralizado de sessão expirada)
+
+### Desafio 3 — Em breve
+
+### Desafio 4 — Em breve
+
+---
 
 ## Estrutura do Projeto
 
@@ -34,7 +62,7 @@ project-aws-kiro/
 ├── nutrix-backend/          # Backend Spring Boot
 │   ├── src/main/java/com/nutrix/
 │   │   ├── auth/            # Autenticação JWT
-│   │   ├── config/          # Configurações Spring
+│   │   ├── config/          # Security, Swagger, Exception Handler
 │   │   ├── exercise/        # Exercícios (dados estáticos)
 │   │   ├── tmb/             # Calculadora TMB
 │   │   ├── user/            # Usuários
@@ -50,9 +78,18 @@ project-aws-kiro/
 │   └── package.json
 ├── migrations/              # Migrations SQL
 ├── schema.sql               # Schema inicial do banco
-├── ARCHITECTURE.md          # Documentação técnica e arquitetura
-└── TESTING_GUIDE.md         # Guia de testes com roteiro completo
+├── DESAFIO_2_MODERNIZATION.md  # Documento do Desafio 2
+├── ARCHITECTURE.md          # Arquitetura técnica
+└── TESTING_GUIDE.md         # Guia de testes
 ```
+
+## Documentação
+
+| Arquivo | Conteúdo |
+|---------|----------|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitetura técnica, módulos, endpoints, banco de dados, segurança e deploy |
+| [TESTING_GUIDE.md](TESTING_GUIDE.md) | Roteiro de testes, URLs, credenciais e exemplos de curl |
+| [DESAFIO_2_MODERNIZATION.md](DESAFIO_2_MODERNIZATION.md) | Comparativo antes vs depois das melhorias do Desafio 2 |
 
 ## Como Executar Localmente
 
@@ -73,13 +110,6 @@ npm install
 npm start
 # Disponível em http://localhost:4200
 ```
-
-## Documentação
-
-| Arquivo | Conteúdo |
-|---------|----------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitetura técnica, módulos, endpoints, banco de dados, segurança e deploy |
-| [TESTING_GUIDE.md](TESTING_GUIDE.md) | Roteiro de testes, URLs, credenciais e exemplos de curl |
 
 ## Licença
 
