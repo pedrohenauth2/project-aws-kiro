@@ -2,15 +2,26 @@
 
 Aplicação web para gerenciamento de saúde e treinos, com calculadora de TMB, montador de treino semanal e banco de exercícios.
 
-## URLs de Produção
+## 🚀 Acesse e Teste a Aplicação
 
-| Serviço | URL |
-|---------|-----|
-| **Frontend** | https://project-aws-kiro.vercel.app |
-| **Backend** | https://nutrix-backend-fibs.onrender.com |
-| **Swagger (API Docs)** | https://nutrix-backend-fibs.onrender.com/swagger-ui.html |
+> **A aplicação está hospedada e pronta para testes. Acesse os links abaixo:**
 
-**Credenciais de teste:** `admin` / `senha123`
+### 🌐 Frontend (Vercel)
+**https://project-aws-kiro.vercel.app**
+
+### ⚙️ Backend API (Render)
+**https://nutrix-backend-fibs.onrender.com**
+
+### 📖 Swagger (Documentação da API)
+**https://nutrix-backend-fibs.onrender.com/swagger-ui.html**
+
+### 🔑 Credenciais de Teste
+| Campo | Valor |
+|-------|-------|
+| **Usuário** | `admin` |
+| **Senha** | `senha123` |
+
+> ⚠️ O backend no Render (plano free) adormece após 15 minutos de inatividade. O primeiro acesso pode demorar até 60 segundos para "acordar".
 
 ## Tech Stack
 
