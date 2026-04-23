@@ -14,8 +14,8 @@ Aplicação web para gerenciamento de saúde e treinos, com calculadora de TMB, 
 
 ## Tech Stack
 
-- **Backend:** Java 17, Spring Boot 3.2.5, Spring Security (JWT), Spring Data JPA
-- **Frontend:** Angular 17+ (Standalone Components), TypeScript, SCSS
+- **Backend:** Java 21, Spring Boot 3.2.5, Spring Security (JWT), Spring Data JPA
+- **Frontend:** Angular 19 (Standalone Components), TypeScript 5.6, SCSS
 - **Banco de Dados:** PostgreSQL (Supabase)
 - **Deploy:** Render (backend), Vercel (frontend)
 
@@ -44,6 +44,8 @@ Melhorias técnicas aplicadas ao projeto existente, sem alterar deploy, banco ou
 📄 **Documento:** [DESAFIO_2_MODERNIZATION.md](DESAFIO_2_MODERNIZATION.md)
 
 **Melhorias implementadas:**
+- Migração de Java 17 para Java 21 (LTS)
+- Migração de Angular 17 para Angular 19
 - Java Records nos DTOs (código mais limpo e imutável)
 - SpringDoc OpenAPI / Swagger UI (documentação interativa da API)
 - Spring Boot Actuator (health check endpoint)

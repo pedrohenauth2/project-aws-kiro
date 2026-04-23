@@ -8,7 +8,43 @@ Este documento descreve as melhorias técnicas aplicadas ao projeto NUTRIX, comp
 
 ## Melhorias Implementadas
 
-### 1. Java Records nos DTOs
+### 1. Migração para Java 21
+
+**Antes:** Java 17
+
+**Depois:** Java 21 (LTS mais recente)
+
+**Benefícios:**
+- Virtual Threads disponíveis (Project Loom)
+- Pattern Matching aprimorado
+- Record Patterns
+- Sequenced Collections
+- Melhor performance do garbage collector
+- Suporte LTS até 2029
+
+**Arquivos alterados:** `pom.xml` (java.version: 21), `Dockerfile` (temurin:21)
+
+---
+
+### 2. Migração para Angular 19
+
+**Antes:** Angular 17.3
+
+**Depois:** Angular 19
+
+**Benefícios:**
+- Signals estáveis e otimizados
+- Novo builder `application` (mais rápido que `browser`)
+- Hydration melhorada
+- Standalone components como padrão
+- TypeScript 5.6
+- Melhor tree-shaking e bundle size
+
+**Arquivos alterados:** `package.json`, `angular.json` (builder: application)
+
+---
+
+### 3. Java Records nos DTOs
 
 **Antes:** DTOs usavam classes com Lombok (`@Data`, `@NoArgsConstructor`, `@AllArgsConstructor`) — geravam getters, setters, equals, hashCode e toString via anotações.
 
@@ -33,7 +69,7 @@ Este documento descreve as melhorias técnicas aplicadas ao projeto NUTRIX, comp
 
 ---
 
-### 2. Spring Boot Actuator (Health Check)
+### 4. Spring Boot Actuator (Health Check)
 
 **Antes:** Nenhum endpoint de monitoramento. Impossível verificar se o backend está saudável sem fazer uma requisição autenticada.
 
@@ -51,7 +87,7 @@ Response: { "status": "UP" }
 
 ---
 
-### 3. SpringDoc OpenAPI (Swagger UI)
+### 5. SpringDoc OpenAPI (Swagger UI)
 
 **Antes:** Documentação da API apenas em arquivos markdown. Para testar endpoints, era necessário usar curl ou Postman manualmente.
 
@@ -70,7 +106,7 @@ OpenAPI JSON: https://nutrix-backend-fibs.onrender.com/api-docs
 
 ---
 
-### 4. Interceptor Global de Erros 401 (Frontend)
+### 6. Interceptor Global de Erros 401 (Frontend)
 
 **Antes:** Se o token JWT expirasse durante o uso, cada componente tratava o erro individualmente. Em alguns casos, o usuário via "Erro interno" sem ser redirecionado para o login.
 
@@ -93,9 +129,9 @@ OpenAPI JSON: https://nutrix-backend-fibs.onrender.com/api-docs
 | Banco de dados (Supabase) | Sem alteração |
 | Rotas da API | Sem alteração |
 | Comportamento funcional | Sem alteração |
-| Versão do Java (17) | Sem alteração |
+| Versão do Java (17) | Atualizado para 21 |
 | Versão do Spring Boot (3.2.5) | Sem alteração |
-| Versão do Angular (17) | Sem alteração |
+| Versão do Angular (17) | Atualizado para 19 |
 
 ---
 
