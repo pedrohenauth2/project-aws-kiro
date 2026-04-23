@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist/nutrix-frontend/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
