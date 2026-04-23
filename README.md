@@ -60,7 +60,14 @@ Criação de 3 Agent Hooks para automatizar atividades recorrentes do fluxo de d
 - Validar padrões Java (fileEdited) — verifica se arquivos `.java` seguem os padrões do projeto
 - Sugerir testes para Services (fileEdited) — sugere testes ao editar arquivos `*Service.java`
 
-### Desafio 4 — Em breve
+### Desafio 4 — Kiro Power com MCP
+
+Criação de um Kiro Power customizado que usa MCP para verificar a saúde dos serviços NUTRIX em produção.
+
+📄 **Documento:** [DESAFIO_4_POWER.md](DESAFIO_4_POWER.md)
+
+**Power criado:**
+- NUTRIX Health Check — verifica Backend (Render), Frontend (Vercel) e API via MCP server customizado em Node.js
 
 ---
 
@@ -89,6 +96,7 @@ project-aws-kiro/
 ├── schema.sql               # Schema inicial do banco
 ├── DESAFIO_2_MODERNIZATION.md  # Documento do Desafio 2
 ├── DESAFIO_3_HOOKS.md          # Documento do Desafio 3
+├── DESAFIO_4_POWER.md          # Documento do Desafio 4
 ├── ARCHITECTURE.md          # Arquitetura técnica
 └── TESTING_GUIDE.md         # Guia de testes
 ```
@@ -101,6 +109,7 @@ project-aws-kiro/
 | [TESTING_GUIDE.md](TESTING_GUIDE.md) | Roteiro de testes, URLs, credenciais e exemplos de curl |
 | [DESAFIO_2_MODERNIZATION.md](DESAFIO_2_MODERNIZATION.md) | Comparativo antes vs depois das melhorias do Desafio 2 |
 | [DESAFIO_3_HOOKS.md](DESAFIO_3_HOOKS.md) | Definição dos 3 Agent Hooks, gatilhos e comportamento esperado |
+| [DESAFIO_4_POWER.md](DESAFIO_4_POWER.md) | Kiro Power com MCP para health check dos serviços |
 
 ## Como Executar Localmente
 
