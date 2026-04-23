@@ -25,6 +25,14 @@ const SERVICES = {
     headers: { "Content-Type": "application/json" },
     expectedError: 401,
   },
+  database: {
+    name: "Banco de Dados (Supabase)",
+    url: "https://zbdavihuugvrygzzeblk.supabase.co/rest/v1/",
+    headers: {
+      "apikey": "sb_publishable_7yMtPihQQ7G1YR50lu2BoA_dK5Ks68a"
+    },
+    expectedError: 401,
+  },
 };
 
 function httpsRequest(url, options = {}) {
@@ -80,7 +88,9 @@ async function checkService(service) {
         status: "UP",
         httpStatus: response.status,
         responseTime: `${elapsed}ms`,
-        note: "Respondendo corretamente (401 esperado sem credenciais)",
+        note: service.name.includes("Supabase")
+          ? "Banco acessivel (401 esperado sem API key)"
+          : "Respondendo corretamente (401 esperado sem credenciais)",
       };
     }
 
@@ -139,6 +149,7 @@ server.tool("check_all_services", "Verifica a saude de todos os servicos NUTRIX 
     checkService(SERVICES.backend),
     checkService(SERVICES.frontend),
     checkService(SERVICES.api),
+    checkService(SERVICES.database),
   ]);
 
   const allUp = results.every((r) => r.status === "UP");
@@ -171,6 +182,11 @@ server.tool("check_frontend", "Verifica a saude do frontend NUTRIX na Vercel", {
 server.tool("check_api", "Testa o endpoint de login da API NUTRIX", {}, async () => {
   await wakeUpBackend();
   const result = await checkService(SERVICES.api);
+  return { content: [{ type: "text", text: formatResult(result) }] };
+});
+
+server.tool("check_database", "Verifica a saude do banco de dados Supabase", {}, async () => {
+  const result = await checkService(SERVICES.database);
   return { content: [{ type: "text", text: formatResult(result) }] };
 });
 

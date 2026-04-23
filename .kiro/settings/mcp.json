@@ -8,7 +8,7 @@
         "NODE_OPTIONS": "--dns-result-order=ipv4first"
       },
       "disabled": false,
-      "autoApprove": ["check_all_services", "check_backend", "check_frontend", "check_api"]
+      "autoApprove": ["check_all_services", "check_backend", "check_frontend", "check_api", "check_database"]
     }
   }
 }
